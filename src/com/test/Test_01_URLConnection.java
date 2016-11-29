@@ -1,5 +1,7 @@
 package com.test;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -9,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,8 +23,8 @@ public class Test_01_URLConnection {
 	public void loadWebPage(){
 		URL url = null;
 		BufferedReader br = null;
-//		String address = "http://www.naver.com";
-		String address = "http://localhost:8080/05_DBIO_2/fileUpload.jsp";
+		String address = "http://www.naver.com";
+//		String address = "http://localhost:8080/05_DBIO_2/fileUpload.jsp";
 		
 		try {
 			url = new URL(address);
@@ -33,17 +37,14 @@ public class Test_01_URLConnection {
 			}
 			
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if(br!=null){
 				try {
 					br.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -70,17 +71,14 @@ public class Test_01_URLConnection {
 			}
 			
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if(is!=null){
 				try {
 					is.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -88,10 +86,111 @@ public class Test_01_URLConnection {
 				try {
 					out.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
+		}
+	}
+	
+	public void fileFtpUpload(){
+		//ftp접속정보
+		String user = "";
+		String password = "";
+		String host = "";
+		String remoteFile = "";
+		
+		//ftp Connection
+		URL url = null;
+		URLConnection m_client = null;
+		
+		//업로드에 사용할 스트림
+		InputStream is = null;
+		BufferedInputStream bis = null;
+		OutputStream os = null;
+		BufferedOutputStream bos = null;
+		
+		String localfilename = "";
+		
+		try {
+			url = new URL("ftp://" + user + ":" + password + "@" + host + "/" + remoteFile + ";type=i");
+			m_client = url.openConnection();
+			
+			is = new FileInputStream(localfilename);
+			bis = new BufferedInputStream(is);
+			os = m_client.getOutputStream();
+			bos = new BufferedOutputStream(os);
+			
+			byte[] buffer = new byte[1024];
+			int readCount;
+			while ((readCount = bis.read(buffer)) > 0) {
+				bos.write(buffer, 0, readCount);
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if(bos!=null){
+					bos.close();
+				}
+				if(bis!=null){
+					bis.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void fileFtpDownload(){
+		//ftp접속정보
+		String user = "";
+		String password = "";
+		String host = "";
+		String remoteFile = "";
+		
+		//ftp Connection
+		URL url = null;
+		URLConnection m_client = null;
+		
+		//다운로드에 사용할 스트림
+		InputStream is = null;
+		BufferedInputStream bis = null;
+		OutputStream os = null;
+		BufferedOutputStream bos = null;
+		
+		String localfilename = "";
+		
+		try {
+			url = new URL("ftp://" + user + ":" + password + "@" + host + "/" + remoteFile + ";type=i");
+			m_client = url.openConnection();
+			
+			is = m_client.getInputStream();
+			bis = new BufferedInputStream(is);
+			os = new FileOutputStream(localfilename);
+			bos = new BufferedOutputStream(os);
+			
+			byte[] buffer = new byte[1024];
+			int readCount;
+			
+			while ((readCount = bis.read(buffer)) > 0) {
+				bos.write(buffer, 0, readCount);
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if(bos!=null){
+					bos.close();
+				}
+				if(is!=null){
+					is.close(); // close the FTP inputstream
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
 	}
 	
