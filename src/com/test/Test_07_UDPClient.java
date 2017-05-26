@@ -7,7 +7,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class Test_05_UDPClient {
+public class Test_07_UDPClient {
 	public void clientRun(){
 		DatagramSocket socket = null;
 		InetAddress address = null;
@@ -51,7 +51,7 @@ public class Test_05_UDPClient {
 	}
 	
 	public static void main(String[] args) {
-		Test_05_UDPClient obj = new Test_05_UDPClient();
+		Test_07_UDPClient obj = new Test_07_UDPClient();
 		obj.clientRun();
 	}
 }

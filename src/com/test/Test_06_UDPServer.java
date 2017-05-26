@@ -6,7 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
-public class Test_04_UDPServer {
+public class Test_06_UDPServer {
 	public void serverRun(){
 		DatagramSocket socket = null;
 		DatagramPacket inPacket = null;
@@ -57,7 +57,7 @@ public class Test_04_UDPServer {
 	}
 	
 	public static void main(String[] args) {
-		Test_04_UDPServer obj = new Test_04_UDPServer();
+		Test_06_UDPServer obj = new Test_06_UDPServer();
 		obj.serverRun();
 	}
 }

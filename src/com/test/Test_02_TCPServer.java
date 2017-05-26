@@ -45,10 +45,8 @@ public class Test_02_TCPServer {
 			}
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -59,7 +57,6 @@ public class Test_02_TCPServer {
 			try {
 				dos.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -67,7 +64,6 @@ public class Test_02_TCPServer {
 			try {
 				dis.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -75,7 +71,6 @@ public class Test_02_TCPServer {
 			try {
 				socket.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
